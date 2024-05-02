@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../../services/product.service';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-products',
@@ -10,10 +10,10 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent {
-  isSidePanelVisible: boolean= false;
+export class ProductsComponent implements OnInit{
 
-  product: any={
+  isSidePanelVisible: boolean= false;
+  productObj: any = {
     "productId": 0,
     "productSku": "",
     "productName": "",
@@ -26,8 +26,42 @@ export class ProductsComponent {
     "productImageUrl": ""
   }
 
+  categoryList: any [] = [];
+  productsList: any [] = [];
+
+
   constructor(private productSrv: ProductService){
-    
+
+  }
+  ngOnInit(): void {
+    this.getAllCategory();
+  }
+
+  getProducts(){
+    this.productSrv.getProducts().subscribe((res:any)=>{
+      this.productsList = res.data;
+    })
+  }
+
+
+  getAllCategory(){
+    this.productSrv.getCategory().subscribe((res:any)=>{
+      this.categoryList = res.data;
+    })
+  }
+
+  onSave(){
+    this.productSrv.saveProduct(this.productObj).subscribe((res:any)=>{
+      debugger;
+      if(res.result){
+        alert('created')
+        this.getProducts();
+      }
+      else{
+        alert('error')
+
+      }
+    })
   }
 
   openSidePanel(){

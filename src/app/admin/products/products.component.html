@@ -14,36 +14,17 @@
             <!-- product cards -->
             <div class="card-body">
                 <div class="row" >
-                    <div class="col-3">
+                    <div class="col-3" *ngFor="let product of productsList">
                         <div class="card">
-                            <img class="card-img-top" src="img_avatar1.png" alt="Card image">
+                            <img class="card-img-top" [src]="product.productImageUrl" alt="Card image">
                             <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text.</p>
+                            <h4 class="card-title">{{product.productNam}}</h4>
+                            <p class="card-text">{{product.categoryName}}</p>
                             <a href="#" class="btn btn-primary">See Profile</a>
                             </div>  
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img class="card-img-top" src="img_avatar1.png" alt="Card image">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text.</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card">
-                            <img class="card-img-top" src="img_avatar1.png" alt="Card image">
-                            <div class="card-body">
-                            <h4 class="card-title">John Doe</h4>
-                            <p class="card-text">Some example text.</p>
-                            <a href="#" class="btn btn-primary">See Profile</a>
-                            </div>  
-                        </div>
-                    </div>
+                    
                 </div>   
             </div>   
             <!-- enf of the product cards -->
@@ -67,36 +48,46 @@
                 <div class="row">
                     <div class="col-6">
                         <label for="">SKU</label>
-                        <input type="text" [(ngModel)]="product.productSku" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.productSku" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Name</label>
-                        <input type="text" [(ngModel)]="product.productNam" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.ProductName" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Short name</label>
-                        <input type="text" [(ngModel)]="product.productShortName" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.productShortName" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Price</label>
-                        <input type="text" [(ngModel)]="product.productPrice" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.productPrice" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Category</label>
-                        <input type="text" [(ngModel)]="product.categoryId" class="form-control">
+                        <select  [(ngModel)]="productObj.categoryId" class="form-select">
+                            <option *ngFor="let cate of categoryList" [value]="cate.categoryId"> {{cate.categoryName}} </option>
+                        </select>
+                        
                     </div>
                     <div class="col-6">
                         <label for="">Delivery Time span</label>
-                        <input type="text" [(ngModel)]="product.deliveryTimeSpan" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
                     </div>
                     <div class="col-6">
                         <label for="">Image URL</label>
-                        <input type="text" [(ngModel)]="product.productImageUrl" class="form-control">
+                        <input type="text" [(ngModel)]="productObj.productImageUrl" class="form-control">
                     </div>
 
                     <div class="col-6">
                         <label for="">Description</label>
-                        <textarea type="text" [(ngModel)]="product.productDescription" class="form-control">
+                        <textarea type="text" [(ngModel)]="productObj.productDescription" class="form-control"></textarea>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-success">Reset</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-success" (click)="onSave()">Create</button>
+
                     </div>
                 </div>
             </div>
