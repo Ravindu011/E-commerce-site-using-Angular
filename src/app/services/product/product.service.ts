@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Constant } from '../constant/constant';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductService {
 
@@ -19,7 +19,3 @@ export class ProductService {
     return this.http.post(Constant.API_END_POINT + Constant.METHODS.CREATE_PRODUCT, obj)
   }
 }
-
-
-
-
